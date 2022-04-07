@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "tSmGE1zsk9CEgBEL/kSaO0K977mAFQBZvJKumIvu41/1/gwElB7eK9Qq7vvU1c9NqLxU3vnc0aSsCdUkaiPKfg==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\Football-Manager\\Football-Manager\\Football-Manager\\Football-Manager.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\mgaud\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\mgaud\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\mgaud\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\mgaud\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
