@@ -1,4 +1,6 @@
+using Football_Manager.Interfaces;
 using Football_Manager.Models.Tables;
+using Football_Manager.Providers;
 using  Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,11 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<FootballManagerContext>(options =>
+builder.Services.AddDbContextPool<FootballManagerContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("FootBallManagerDatabase")));
+builder.Services.AddTransient<IPlayerProvider,PlayerProvider>();
+builder.Services.AddSingleton<ICustomLogger, ConsoleLoggingProvider>();
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

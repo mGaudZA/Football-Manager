@@ -8,10 +8,9 @@ namespace Football_Manager.Models.Tables
         public DbSet<Team> Teams { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
 
-
-        public FootballManagerContext(DbContextOptions context) : base(context)
+        public FootballManagerContext(DbContextOptions<FootballManagerContext> options)
+       : base(options)
         {
-
         }
     }
 }
