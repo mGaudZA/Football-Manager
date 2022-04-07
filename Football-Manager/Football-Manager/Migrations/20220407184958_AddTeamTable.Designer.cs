@@ -4,6 +4,7 @@ using Football_Manager.Models.Tables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Football_Manager.Migrations
 {
     [DbContext(typeof(FootballManagerContext))]
-    partial class FootballManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20220407184958_AddTeamTable")]
+    partial class AddTeamTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,38 +71,6 @@ namespace Football_Manager.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("Football_Manager.Models.Tables.Stadium", b =>
-                {
-                    b.Property<int>("StadiumId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StadiumId"), 1L, 1);
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sport")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StadiumId");
-
-                    b.ToTable("Stadiums");
-                });
-
             modelBuilder.Entity("Football_Manager.Models.Tables.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -122,15 +92,10 @@ namespace Football_Manager.Migrations
                     b.Property<double>("PossessionPercentage")
                         .HasColumnType("float");
 
-                    b.Property<int?>("StadiumId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Wins")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StadiumId");
 
                     b.ToTable("Teams");
                 });
@@ -140,18 +105,6 @@ namespace Football_Manager.Migrations
                     b.HasOne("Football_Manager.Models.Tables.Team", null)
                         .WithMany("Players")
                         .HasForeignKey("TeamId");
-                });
-
-            modelBuilder.Entity("Football_Manager.Models.Tables.Team", b =>
-                {
-                    b.HasOne("Football_Manager.Models.Tables.Stadium", null)
-                        .WithMany("Teams")
-                        .HasForeignKey("StadiumId");
-                });
-
-            modelBuilder.Entity("Football_Manager.Models.Tables.Stadium", b =>
-                {
-                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("Football_Manager.Models.Tables.Team", b =>
