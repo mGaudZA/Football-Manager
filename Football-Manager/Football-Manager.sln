@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Football-Manager", "Football-Manager\Football-Manager.csproj", "{BA7E991A-AD91-4086-808C-78A72E6735FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Football-Manager", "Football-Manager\Football-Manager.csproj", "{BA7E991A-AD91-4086-808C-78A72E6735FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Football-Manager-Tests", "Football-Manager-Tests\Football-Manager-Tests.csproj", "{525BE245-403E-4F27-81AC-BFB909C263DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BA7E991A-AD91-4086-808C-78A72E6735FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA7E991A-AD91-4086-808C-78A72E6735FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA7E991A-AD91-4086-808C-78A72E6735FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{525BE245-403E-4F27-81AC-BFB909C263DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{525BE245-403E-4F27-81AC-BFB909C263DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525BE245-403E-4F27-81AC-BFB909C263DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{525BE245-403E-4F27-81AC-BFB909C263DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
