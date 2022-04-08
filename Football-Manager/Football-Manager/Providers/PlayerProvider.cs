@@ -23,6 +23,11 @@ namespace Football_Manager.Providers
 
         public async Task<Player> AddPlayer(Player newPlayer)
         {
+            if(newPlayer.TeamId != 0 && (await _footballManagerContext.Teams.FindAsync(newPlayer.TeamId)) == null)
+            {
+                return null;
+            }
+
             var player = await _footballManagerContext.Players.AddAsync(newPlayer);
             await _footballManagerContext.SaveChangesAsync();
 

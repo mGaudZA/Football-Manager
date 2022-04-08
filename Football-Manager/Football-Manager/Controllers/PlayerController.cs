@@ -27,7 +27,7 @@ namespace Football_Manager.Controllers
                 }
                 else
                 {
-                    throw new Exception("failed to add player");
+                    return BadRequest($"Team with Id {request.TeamId} is not found");
                 }
             }
             catch (Exception e)

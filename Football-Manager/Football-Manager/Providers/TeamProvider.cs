@@ -23,18 +23,14 @@ namespace Football_Manager.Providers
             return _footballManagerContext.Teams.ToList();
         }
 
-        public async Task<Team> CreateTeam(CreateOrUpdateTableRequest newTeam)
+        public async Task<Team> CreateTeam(Team newTeam)
         {
-            var team = new Team() {
-                Name = newTeam.Name,
-                PassPercentage = newTeam.PassPercentage,
-                PossessionPercentage = newTeam.PossessionPercentage,
-                Losses = newTeam.Losses,
-                Wins = newTeam.Wins,
+            if (newTeam.StadiumId != 0 && (await _footballManagerContext.Stadiums.FindAsync(newTeam.StadiumId)) == null)
+            {
+                return null;
+            }
 
-
-            };
-            var teamConfirmation = await _footballManagerContext.Teams.AddAsync(team);
+            var teamConfirmation = await _footballManagerContext.Teams.AddAsync(newTeam);
             await _footballManagerContext.SaveChangesAsync();
 
             return await _footballManagerContext.Teams.FindAsync(teamConfirmation.Entity.Id);
@@ -77,6 +73,5 @@ namespace Football_Manager.Providers
             await _footballManagerContext.SaveChangesAsync();
             return true;
         }
-
     }
 }

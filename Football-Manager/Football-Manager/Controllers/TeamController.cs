@@ -16,7 +16,7 @@ namespace Football_Manager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTeam([FromBody] CreateOrUpdateTableRequest request)
+        public async Task<IActionResult> CreateTeam([FromBody] Team request)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace Football_Manager.Controllers
                 }
                 else
                 {
-                    throw new Exception("failed to add team");
+                    return BadRequest($"Stadium with Id {request.StadiumId} is not found");
                 }
             }
             catch (Exception e)
