@@ -55,7 +55,7 @@ namespace Football_Manager.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetAllPayers()
+        public IActionResult GetAllTeams()
         {
             try
             {

@@ -44,5 +44,16 @@ namespace Football_Manager.Providers
                 return false;
             }
         }
+
+        public async Task<List<Player>> GetAllPlayersByTeamId(int teamId)
+        {
+            var team = await _footballManagerContext.Teams.FindAsync(teamId);
+
+            if(team == null)
+            {
+                return null;
+            }
+            return _footballManagerContext.Players.Where(b => b.TeamId == teamId).ToList();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Football_Manager.Interfaces
         List<Player> GetAllPlayers();
         Task<bool> AddPlayer(Player newPlayer);
         Task<bool> DeletePlayer(int playerId);
+        Task<List<Player>> GetAllPlayersByTeamId(int teamId);
     }
 }

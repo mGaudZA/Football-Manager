@@ -19,7 +19,7 @@ namespace Football_Manager.Controllers
         {
             try
             {
-                var newPlayer = _playerProvider.AddPlayer(request);
+                var newPlayer = await _playerProvider.AddPlayer(request);
 
                 return Ok(newPlayer);
             }
@@ -81,6 +81,29 @@ namespace Football_Manager.Controllers
                 else
                 {
                     return NotFound($"Player with ID {playerId} was not found");
+                }
+            }
+            catch (Exception e)
+            {
+                CustomLogger.LogError(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPlayersByTeamId(int teamId)
+        {
+            
+            try
+            {
+                var players = await _playerProvider.GetAllPlayersByTeamId(teamId);
+                if (players != null)
+                {
+                    return Ok(players);
+                }
+                else
+                {
+                    return NotFound($"team with ID {teamId} was not found");
                 }
             }
             catch (Exception e)

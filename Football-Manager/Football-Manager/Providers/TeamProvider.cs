@@ -46,7 +46,6 @@ namespace Football_Manager.Providers
 
             if (team != null)
             {
-                team.Players = new List<Player>();
                 _footballManagerContext.Teams.Remove(team);
                 await _footballManagerContext.SaveChangesAsync();
                 return true;
@@ -69,12 +68,7 @@ namespace Football_Manager.Providers
             {
                 return false;
             }
-            if(team.Players == null)
-            {
-                team.Players = new List<Player>();
-            }
-
-            team.Players.Add(player);
+            player.TeamId = team.Id;
 
             await _footballManagerContext.SaveChangesAsync();
             return true;
