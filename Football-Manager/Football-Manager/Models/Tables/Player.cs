@@ -27,5 +27,7 @@ namespace Football_Manager.Models.Tables
         public int NumberOfRedCards { get; set; }
 
         public int NumberOfGoalsScored { get; set; }
+
+        public int TeamId { get; set; }
     }
 }

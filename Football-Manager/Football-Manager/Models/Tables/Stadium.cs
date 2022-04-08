@@ -16,8 +16,5 @@ namespace Football_Manager.Models.Tables
         [Required]
         public string Sport { get; set; }
 
-        public List<Team> Teams { get; set; }
-
-
     }
 }

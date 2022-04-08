@@ -19,6 +19,6 @@ namespace Football_Manager.Models.Tables
 
         public int Losses { get; set; }
 
-        public List<Player> Players { get; set; }
+        public int StadiumId { get; set; }
     }
 }
