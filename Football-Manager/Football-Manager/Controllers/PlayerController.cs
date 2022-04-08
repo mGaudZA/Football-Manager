@@ -21,7 +21,14 @@ namespace Football_Manager.Controllers
             {
                 var newPlayer = await _playerProvider.AddPlayer(request);
 
-                return Ok(newPlayer);
+                if (newPlayer != null)
+                {
+                    return Ok(newPlayer);
+                }
+                else
+                {
+                    throw new Exception("failed to add player");
+                }
             }
             catch (Exception e)
             {

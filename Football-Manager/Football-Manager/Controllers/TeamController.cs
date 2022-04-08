@@ -21,8 +21,14 @@ namespace Football_Manager.Controllers
             try
             {
                 var newTeam = await _teamProvider.CreateTeam(request);
-
-                return Ok(newTeam);
+                if(newTeam != null)
+                {
+                    return Ok(newTeam);
+                }
+                else
+                {
+                    throw new Exception("failed to add team");
+                }
             }
             catch (Exception e)
             {

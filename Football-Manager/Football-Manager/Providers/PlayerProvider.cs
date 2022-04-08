@@ -21,12 +21,12 @@ namespace Football_Manager.Providers
             return _footballManagerContext.Players.ToList();
         }
 
-        public async Task<bool> AddPlayer(Player newPlayer)
+        public async Task<Player> AddPlayer(Player newPlayer)
         {
             var player = await _footballManagerContext.Players.AddAsync(newPlayer);
             await _footballManagerContext.SaveChangesAsync();
 
-            return _footballManagerContext.Players.Any(x => x.PlayerId == player.Entity.PlayerId);
+            return await _footballManagerContext.Players.FindAsync(player.Entity.PlayerId);
         }
 
         public async Task<bool> DeletePlayer(int playerId)
