@@ -14,6 +14,8 @@ builder.Services.AddDbContextPool<FootballManagerContext>(options =>
 builder.Services.AddTransient<IPlayerProvider,PlayerProvider>();
 builder.Services.AddSingleton<ICustomLogger, ConsoleLoggingProvider>();
 builder.Services.AddTransient<ITeamProvider, TeamProvider>();
+builder.Services.AddTransient<IStadiumProvider, StadiumProvider>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

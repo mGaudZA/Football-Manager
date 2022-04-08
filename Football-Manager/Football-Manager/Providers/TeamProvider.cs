@@ -23,7 +23,7 @@ namespace Football_Manager.Providers
             return _footballManagerContext.Teams.ToList();
         }
 
-        public async Task<bool> CreateTeam(CreateOrUpdateTableRequest newTeam)
+        public async Task<Team> CreateTeam(CreateOrUpdateTableRequest newTeam)
         {
             var team = new Team() {
                 Name = newTeam.Name,
@@ -37,7 +37,7 @@ namespace Football_Manager.Providers
             var teamConfirmation = await _footballManagerContext.Teams.AddAsync(team);
             await _footballManagerContext.SaveChangesAsync();
 
-            return _footballManagerContext.Teams.Any(x => x.Id == teamConfirmation.Entity.Id);
+            return await _footballManagerContext.Teams.FindAsync(teamConfirmation.Entity.Id);
         }
 
         public async Task<bool> DeleteTeam(int teamId)
@@ -47,6 +47,10 @@ namespace Football_Manager.Providers
             if (team != null)
             {
                 _footballManagerContext.Teams.Remove(team);
+                foreach (var player in _footballManagerContext.Players.Where(x => x.TeamId == teamId))
+                {
+                    player.TeamId = 0;
+                }
                 await _footballManagerContext.SaveChangesAsync();
                 return true;
             }

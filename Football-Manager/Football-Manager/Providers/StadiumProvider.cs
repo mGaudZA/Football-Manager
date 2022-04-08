@@ -4,7 +4,7 @@ using Football_Manager.Models.Tables;
 using System.Linq;
 namespace Football_Manager.Providers
 {
-    public class StadiumProvider
+    public class StadiumProvider : IStadiumProvider
     {
         public FootballManagerContext _footballManagerContext;
         public StadiumProvider(FootballManagerContext footballManagerContext)
@@ -12,45 +12,36 @@ namespace Football_Manager.Providers
             _footballManagerContext = footballManagerContext;
         }
 
-
-        public async Task<Team> GetStadium(int teamId)
+        public async Task<Stadium> GetStadium(int stadiumId)
         {
-            return await _footballManagerContext.Teams.FindAsync(teamId);
+            return await _footballManagerContext.Stadiums.FindAsync(stadiumId);
         }
 
-        public List<Team> GetAllStadiums()
+        public List<Stadium> GetAllStadiums()
         {
-            return _footballManagerContext.Teams.ToList();
+            return _footballManagerContext.Stadiums.ToList();
         }
 
-        public async Task<bool> CreateStadium(CreateOrUpdateTableRequest newTeam)
+        public async Task<Stadium> CreateStadium(Stadium newStadium)
         {
-            var team = new Team() {
-                Name = newTeam.Name,
-                PassPercentage = newTeam.PassPercentage,
-                PossessionPercentage = newTeam.PossessionPercentage,
-                Losses = newTeam.Losses,
-                Wins = newTeam.Wins,
 
-
-            };
-            var teamConfirmation = await _footballManagerContext.Teams.AddAsync(team);
+            var stadiumConfirmation = await _footballManagerContext.Stadiums.AddAsync(newStadium);
             await _footballManagerContext.SaveChangesAsync();
 
-            return _footballManagerContext.Teams.Any(x => x.Id == teamConfirmation.Entity.Id);
+            return await _footballManagerContext.Stadiums.FindAsync(stadiumConfirmation.Entity.StadiumId);
         }
 
-        public async Task<bool> DeleteStadium(int teamId)
+        public async Task<bool> DeleteStadium(int stadiumId)
         {
-            var team = await _footballManagerContext.Teams.FindAsync(teamId);
+            var stadium = await _footballManagerContext.Stadiums.FindAsync(stadiumId);
 
-            if (team != null)
+            if (stadium != null)
             {
-                _footballManagerContext.Teams.Remove(team);
+                _footballManagerContext.Stadiums.Remove(stadium);
 
-                foreach(var player in _footballManagerContext.Players.Where(x => x.TeamId == teamId))
+                foreach (var player in _footballManagerContext.Teams.Where(x => x.StadiumId == stadiumId))
                 {
-                    player.TeamId = 0;
+                    player.StadiumId = 0;
                 }
                 await _footballManagerContext.SaveChangesAsync();
                 return true;
@@ -61,19 +52,19 @@ namespace Football_Manager.Providers
             }
         }
 
-        public async Task<bool> LinkPlayerToStadium(LinkPlayerToTeamRequest request)
+        public async Task<bool> LinkTeamToStadium(LinkTeamToStadiumRequest request)
         {
-            var player = await _footballManagerContext.Players.FindAsync(request.PlayerId);
-            if(player == null)
-            {
-                return false;
-            }
             var team = await _footballManagerContext.Teams.FindAsync(request.TeamId);
             if (team == null)
             {
                 return false;
             }
-            player.TeamId = team.Id;
+            var stadium = await _footballManagerContext.Stadiums.FindAsync(request.StadiumId);
+            if (stadium == null)
+            {
+                return false;
+            }
+            team.StadiumId = stadium.StadiumId;
 
             await _footballManagerContext.SaveChangesAsync();
             return true;
