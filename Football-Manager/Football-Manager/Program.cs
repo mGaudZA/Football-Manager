@@ -13,7 +13,7 @@ builder.Services.AddDbContextPool<FootballManagerContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("FootBallManagerDatabase")));
 builder.Services.AddTransient<IPlayerProvider,PlayerProvider>();
 builder.Services.AddSingleton<ICustomLogger, ConsoleLoggingProvider>();
-
+builder.Services.AddTransient<ITeamProvider, TeamProvider>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
