@@ -31,7 +31,7 @@ namespace Football_Manager.Providers
             var player = await _footballManagerContext.Players.AddAsync(newPlayer);
             await _footballManagerContext.SaveChangesAsync();
 
-            return await _footballManagerContext.Players.FindAsync(player.Entity.PlayerId);
+            return player.Entity;
         }
 
         public async Task<bool> DeletePlayer(int playerId)

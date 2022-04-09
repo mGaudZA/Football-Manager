@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yLcf1cJMNoC9jZMEtET4dLIQ3JdV31m4PQ+hZu+rgHcWYNhONJ5CqDn1wzv3rW0uPpqCPthn4lgLq8K4sDO/BA==",
+  "dgSpecHash": "Yie9vZs8ZuOLZObO5QpQCoqP3tSnxZ6tmvAPNrjDIjtPRIX75z1MEMoOUGIKv0f1nNn9AhEsu30gd4PaPesF8A==",
   "success": true,
   "projectFilePath": "C:\\Projects\\Football-Manager\\Football-Manager\\Football-Manager\\Football-Manager.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.3\\microsoft.entityframeworkcore.abstractions.6.0.3.nupkg.sha512",
     "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.3\\microsoft.entityframeworkcore.analyzers.6.0.3.nupkg.sha512",
     "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.3\\microsoft.entityframeworkcore.design.6.0.3.nupkg.sha512",
+    "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.3\\microsoft.entityframeworkcore.inmemory.6.0.3.nupkg.sha512",
     "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.3\\microsoft.entityframeworkcore.relational.6.0.3.nupkg.sha512",
     "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\6.0.3\\microsoft.entityframeworkcore.sqlite.6.0.3.nupkg.sha512",
     "C:\\Users\\mgaud\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\6.0.3\\microsoft.entityframeworkcore.sqlite.core.6.0.3.nupkg.sha512",
