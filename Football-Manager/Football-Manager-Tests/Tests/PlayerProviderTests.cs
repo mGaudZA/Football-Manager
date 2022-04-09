@@ -15,38 +15,60 @@ namespace Football_Manager_Tests
     {
         private IPlayerProvider _PlayerProvider;
         [Fact]
-        public async Task TestCreatePlayer()
+        public async Task TestAddPlayer()
         {
-            var data = new List<Player>
-            {
-                PlayerHelper.GetMockPlayer()
-            }.AsQueryable();
+            var dbContext = DbContextHelper.GetDbContext();
 
-            var mockSet = new Mock<DbSet<Player>>();
-            mockSet.As<IQueryable<Player>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Player>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Player>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            var playerProvider = new PlayerProvider(dbContext);
 
-            mockSet.As<IQueryable<Player>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var player = await playerProvider.AddPlayer(PlayerHelper.GetMockPlayer());
 
-            var mockContext = new Mock<FootballManagerContext>();
-            mockContext.Setup(m => m.Players).Returns(mockSet.Object);
+            Assert.NotNull(player);
+        }
 
-            var service = new Mock<PlayerProvider>(mockContext.Object);
+        [Fact]
+        public async Task TestGetPlayer()
+        {
+            var dbContext = DbContextHelper.GetDbContext();
 
-            //var player = await service.Object.AddPlayer(PlayerHelper.GetMockPlayer());
-            var player =  service.Object.GetAllPlayers();
+            dbContext.Players.Add(PlayerHelper.GetMockPlayer());
 
-            Assert.True(player.Count() > 0);
+            var playerProvider = new PlayerProvider(dbContext);
 
+            var player = await playerProvider.GetPlayer(1);
 
+            Assert.NotNull(player);
+        }
 
-            //var dbContext = await PlayerHelper.GetDatabaseContext();
-            //var playerProvider = new PlayerProvider(dbContext);
-            ////Act
-            //List<Player> players = playerProvider.GetAllPlayers();
-            ////Assert
-            //Assert.NotNull(players.Count > 0);
+        [Fact]
+        public void TestGetAllPlayer()
+        {
+            var dbContext = DbContextHelper.GetDbContext();
+
+            dbContext.Players.Add(PlayerHelper.GetMockPlayer());
+            dbContext.Players.Add(PlayerHelper.GetMockPlayer());
+            dbContext.SaveChanges();
+
+            var playerProvider = new PlayerProvider(dbContext);
+
+            var players = playerProvider.GetAllPlayers();
+
+            Assert.Equal(players.Count,2);
+        }
+
+        [Fact]
+        public async Task TestAddPlayerFailWithInvalidTeam()
+        {
+            var dbContext = DbContextHelper.GetDbContext();
+            var newPlayer = PlayerHelper.GetMockPlayer();
+            newPlayer.TeamId = 50;
+            dbContext.Players.Add(newPlayer);
+
+            var playerProvider = new PlayerProvider(dbContext);
+
+            var player = await playerProvider.AddPlayer(newPlayer);
+
+            Assert.Null(player);
         }
     }
 }

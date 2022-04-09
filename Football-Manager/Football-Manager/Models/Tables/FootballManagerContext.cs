@@ -7,10 +7,6 @@ namespace Football_Manager.Models.Tables
         public virtual DbSet<Player> Players { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Stadium> Stadiums { get; set; }
-
-        public FootballManagerContext() { }
-        public FootballManagerContext(DbContextOptions<FootballManagerContext> options)
-        {
-        }
+        public FootballManagerContext(DbContextOptions<FootballManagerContext> options) : base(options) { }
     }
 }

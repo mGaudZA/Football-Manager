@@ -1,6 +1,7 @@
 ﻿using Football_Manager.Enums;
 using Football_Manager.Models.Tables;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,24 +27,5 @@ namespace Football_Manager_Tests.TestHelpers
                 NumberOfYellowCards = 2,
             };
         }
-
-        public static async Task<FootballManagerContext> GetDatabaseContext()
-        {
-            var options = new DbContextOptionsBuilder<FootballManagerContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
-            var databaseContext = new FootballManagerContext(options);
-            databaseContext.Database.EnsureCreated();
-            if (await databaseContext.Players.CountAsync() <= 0)
-            {
-                for (int i = 1; i <= 10; i++)
-                {
-                    databaseContext.Players.Add(GetMockPlayer());
-                    await databaseContext.SaveChangesAsync();
-                }
-            }
-            return databaseContext;
-        }
-
     }
 }
