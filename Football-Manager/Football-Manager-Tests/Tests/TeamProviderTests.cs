@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Linq;
 using System.Collections.Generic;
+using Football_Manager.Models.Request;
 
 namespace Football_Manager_Tests
 {
@@ -69,6 +70,38 @@ namespace Football_Manager_Tests
             var Team = await TeamProvider.CreateTeam(newTeam);
 
             Assert.Null(Team);
+        }
+
+        [Fact]
+        public async Task TestChangePlayerTeam()
+        {
+            var dbContext = DbContextHelper.GetDbContext();
+
+            dbContext.Teams.Add(TeamHelper.GetMockTeam());
+            dbContext.Teams.Add(TeamHelper.GetMockTeam());
+            dbContext.Teams.Add(TeamHelper.GetMockTeam());
+
+            dbContext.SaveChanges();
+
+            var player = PlayerHelper.GetMockPlayer();
+            player.TeamId = dbContext.Teams.FirstOrDefault().Id;
+
+            dbContext.Players.Add(player);
+
+            var playerProvider = new PlayerProvider(dbContext);
+            var newPlayer = await playerProvider.AddPlayer(player);
+
+            Assert.Equal(newPlayer.TeamId, dbContext.Teams.FirstOrDefault().Id);
+
+            var teamProvider = new TeamProvider(dbContext);
+
+            teamProvider.LinkPlayerToTeam(new LinkPlayerToTeamRequest() { PlayerId = newPlayer.PlayerId, TeamId = dbContext.Teams.LastOrDefault().Id });
+
+            newPlayer = await playerProvider.GetPlayer(newPlayer.PlayerId);
+
+            Assert.Equal(newPlayer.TeamId, dbContext.Teams.LastOrDefault().Id);
+
+
         }
     }
 }
