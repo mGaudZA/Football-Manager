@@ -1,6 +1,9 @@
 ﻿using Football_Manager.Interfaces;
 using Football_Manager.Models.Tables;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using System.Text;
+using System.Text.Json;
 
 namespace Football_Manager.Controllers
 {
@@ -9,9 +12,11 @@ namespace Football_Manager.Controllers
     public class PlayerController : ControllerBaseOverride
     {
         public IPlayerProvider _playerProvider;
-        public PlayerController(IPlayerProvider playerProvider)
+        public IDistributedCache _IDistributedCache;
+        public PlayerController(IPlayerProvider playerProvider, IDistributedCache iDistributedCache)
         {
             _playerProvider = playerProvider;
+            _IDistributedCache = iDistributedCache;
         }
 
         [HttpPost]
@@ -44,7 +49,7 @@ namespace Football_Manager.Controllers
             {
                 var player = await _playerProvider.GetPlayer(playerId);
 
-                if(player != null)
+                if (player != null)
                 {
                     return Ok(player);
                 }
