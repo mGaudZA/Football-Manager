@@ -88,7 +88,7 @@ namespace Football_Manager_Tests
 
             dbContext.Players.Add(player);
 
-            var playerProvider = new PlayerProvider(dbContext);
+            var playerProvider = new PlayerProvider(dbContext, null);
             var newPlayer = await playerProvider.AddPlayer(player);
 
             Assert.Equal(newPlayer.TeamId, dbContext.Teams.FirstOrDefault().Id);

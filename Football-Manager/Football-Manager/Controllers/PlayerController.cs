@@ -1,4 +1,6 @@
 ﻿using Football_Manager.Interfaces;
+using Football_Manager.Models;
+using Football_Manager.Models.Request;
 using Football_Manager.Models.Tables;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -12,11 +14,11 @@ namespace Football_Manager.Controllers
     public class PlayerController : ControllerBaseOverride
     {
         public IPlayerProvider _playerProvider;
-        public IDistributedCache _IDistributedCache;
-        public PlayerController(IPlayerProvider playerProvider, IDistributedCache iDistributedCache)
+        public IPortraitProvider _portraitProvider;
+        public PlayerController(IPlayerProvider playerProvider, IPortraitProvider portraitProvider)
         {
             _playerProvider = playerProvider;
-            _IDistributedCache = iDistributedCache;
+            _portraitProvider = portraitProvider;
         }
 
         [HttpPost]
@@ -138,6 +140,73 @@ namespace Football_Manager.Controllers
                 else
                 {
                     return NotFound($"Player with Id {player.PlayerId} Is not found");
+                }
+            }
+            catch (Exception e)
+            {
+                CustomLogger.LogError(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPortraitToPlayer([FromBody] AddPortraitToPlayerRequest request)
+        {
+            try
+            {
+                var portrait = await _portraitProvider.AddPortraitToPlayer(request);
+                if (portrait != null)
+                {
+                    return Ok(portrait);
+                }
+                else
+                {
+                    return NotFound($"Player with Id {request.PlayerId} Is not found");
+                }
+            }
+            catch (Exception e)
+            {
+                CustomLogger.LogError(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPortraitForPlayer(int playerId)
+        {
+            try
+            {
+                var portrait = await _portraitProvider.GetPlayerPortrait(playerId);
+                if (portrait != null)
+                {
+                    return Ok(portrait);
+                }
+                else
+                {
+                    return NotFound($"Player with Id playerId Is not found");
+                }
+            }
+            catch (Exception e)
+            {
+                CustomLogger.LogError(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
+            }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllPlayersWithPortraits()
+        {
+            try
+            {
+                var portrait = await _playerProvider.GetAllPlayersWithPortraits();
+                if (portrait != null)
+                {
+                    return Ok(portrait);
+                }
+                else
+                {
+                    return NotFound($"No players Found");
                 }
             }
             catch (Exception e)

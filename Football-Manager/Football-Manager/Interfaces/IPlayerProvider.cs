@@ -1,4 +1,5 @@
-﻿using Football_Manager.Models.Tables;
+﻿using Football_Manager.Models;
+using Football_Manager.Models.Tables;
 
 namespace Football_Manager.Interfaces
 {
@@ -10,5 +11,6 @@ namespace Football_Manager.Interfaces
         Task<bool> DeletePlayer(int playerId);
         Task<List<Player>> GetAllPlayersByTeamId(int teamId);
         Task<Player> UpdatePlayer(Player updatedPlayer);
+        Task<List<PlayerResponse>> GetAllPlayersWithPortraits();
     }
 }

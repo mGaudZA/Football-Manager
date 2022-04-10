@@ -18,6 +18,7 @@ builder.Services.AddTransient<IPlayerProvider,PlayerProvider>();
 builder.Services.AddSingleton<ICustomLogger, ConsoleLoggingProvider>();
 builder.Services.AddTransient<ITeamProvider, TeamProvider>();
 builder.Services.AddTransient<IStadiumProvider, StadiumProvider>();
+builder.Services.AddTransient<IPortraitProvider, PortraitProvider>();
 
 var app = builder.Build();
 

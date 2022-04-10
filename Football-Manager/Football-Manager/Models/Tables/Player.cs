@@ -30,6 +30,6 @@ namespace Football_Manager.Models.Tables
 
         public int TeamId { get; set; }
 
-        public string PortraitKey { get; set; }
+        public string PortraitKey { get; set; } = null;
     }
 }

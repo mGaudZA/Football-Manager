@@ -1,14 +1,17 @@
 ﻿using Football_Manager.Interfaces;
+using Football_Manager.Models;
 using Football_Manager.Models.Tables;
 
 namespace Football_Manager.Providers
 {
     public class PlayerProvider : IPlayerProvider
     {
-        public FootballManagerContext _footballManagerContext;
-        public PlayerProvider(FootballManagerContext footballManagerContext)
+        private FootballManagerContext _footballManagerContext;
+        private IPortraitProvider _portraitProvider;
+        public PlayerProvider(FootballManagerContext footballManagerContext, IPortraitProvider portraitProvider)
         {
             _footballManagerContext = footballManagerContext;
+            _portraitProvider = portraitProvider;
         }
 
         public async Task<Player> GetPlayer(int playerId)
@@ -82,6 +85,16 @@ namespace Football_Manager.Providers
             await _footballManagerContext.SaveChangesAsync();
 
             return currentPlayer;
+        }
+
+        public async Task<List<PlayerResponse>> GetAllPlayersWithPortraits()
+        {
+            var players = GetAllPlayers();
+
+            List<Tuple<Player, Task<string>>> playerPortraitTasks = players.ToList().Select(x => { return new Tuple<Player, Task<string>>(x,_portraitProvider.GetPlayerPortrait( x.PlayerId)); }).ToList();
+            await Task.WhenAll(playerPortraitTasks.Select(x => x.Item2));
+
+            return playerPortraitTasks.Select(x => { return new PlayerResponse() { player = x.Item1, PlayerPortrait = x.Item2.Result }; }).ToList();
         }
     }
 }

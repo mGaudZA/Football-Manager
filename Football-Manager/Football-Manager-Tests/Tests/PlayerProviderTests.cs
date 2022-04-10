@@ -19,7 +19,7 @@ namespace Football_Manager_Tests
         {
             var dbContext = DbContextHelper.GetDbContext();
 
-            var playerProvider = new PlayerProvider(dbContext);
+            var playerProvider = new PlayerProvider(dbContext,null);
 
             var player = await playerProvider.AddPlayer(PlayerHelper.GetMockPlayer());
 
@@ -33,7 +33,7 @@ namespace Football_Manager_Tests
 
             dbContext.Players.Add(PlayerHelper.GetMockPlayer());
 
-            var playerProvider = new PlayerProvider(dbContext);
+            var playerProvider = new PlayerProvider(dbContext, null);
 
             var player = await playerProvider.GetPlayer(1);
 
@@ -49,7 +49,7 @@ namespace Football_Manager_Tests
             dbContext.Players.Add(PlayerHelper.GetMockPlayer());
             dbContext.SaveChanges();
 
-            var playerProvider = new PlayerProvider(dbContext);
+            var playerProvider = new PlayerProvider(dbContext, null);
 
             var players = playerProvider.GetAllPlayers();
 
@@ -64,7 +64,7 @@ namespace Football_Manager_Tests
             newPlayer.TeamId = int.MaxValue;
             dbContext.Players.Add(newPlayer);
 
-            var playerProvider = new PlayerProvider(dbContext);
+            var playerProvider = new PlayerProvider(dbContext, null);
 
             var player = await playerProvider.AddPlayer(newPlayer);
 

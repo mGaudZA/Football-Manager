@@ -25,6 +25,7 @@ namespace Football_Manager_Tests.TestHelpers
                 NumberOfGoalsScored = 2,
                 NumberOfRedCards = 2,
                 NumberOfYellowCards = 2,
+                PortraitKey = String.Empty
             };
         }
     }
