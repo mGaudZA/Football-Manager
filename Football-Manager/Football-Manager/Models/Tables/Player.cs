@@ -29,5 +29,7 @@ namespace Football_Manager.Models.Tables
         public int NumberOfGoalsScored { get; set; }
 
         public int TeamId { get; set; }
+
+        public string PortraitKey { get; set; }
     }
 }
