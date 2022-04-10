@@ -9,5 +9,6 @@ namespace Football_Manager.Interfaces
         Task<Player> AddPlayer(Player newPlayer);
         Task<bool> DeletePlayer(int playerId);
         Task<List<Player>> GetAllPlayersByTeamId(int teamId);
+        Task<Player> UpdatePlayer(Player updatedPlayer);
     }
 }

@@ -117,5 +117,26 @@ namespace Football_Manager.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> TransferAllPlayersFromTeam([FromBody] TransferAllPlayersFromTeam request)
+        {
+            try
+            {
+                if (await _teamProvider.TransferPlayersFromTeamToTeam(request))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound($"Team with Id {request.NewTeamId} or team with ID {request.CurrentTeamId} is not found");
+                }
+            }
+            catch (Exception e)
+            {
+                CustomLogger.LogError(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
+            }
+        }
     }
 }

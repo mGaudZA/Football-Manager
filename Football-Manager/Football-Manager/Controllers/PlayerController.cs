@@ -119,5 +119,27 @@ namespace Football_Manager.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePlayer(Player player)
+        {
+            try
+            {
+                var players = await _playerProvider.UpdatePlayer(player);
+                if (players != null)
+                {
+                    return Ok(players);
+                }
+                else
+                {
+                    return NotFound($"Player with Id {player.PlayerId} Is not found");
+                }
+            }
+            catch (Exception e)
+            {
+                CustomLogger.LogError(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Service unavailable");
+            }
+        }
     }
 }

@@ -60,5 +60,28 @@ namespace Football_Manager.Providers
             }
             return _footballManagerContext.Players.Where(b => b.TeamId == teamId).ToList();
         }
+
+        public async Task<Player> UpdatePlayer(Player updatedPlayer)
+        {
+            var currentPlayer = await _footballManagerContext.Players.FindAsync(updatedPlayer.PlayerId);
+
+            if(currentPlayer == null)
+            {
+                return null;
+            }
+            currentPlayer.Name = updatedPlayer.Name;
+            currentPlayer.Surname = updatedPlayer.Surname;
+            currentPlayer.NumberOfRedCards = updatedPlayer.NumberOfRedCards;
+            currentPlayer.NumberOfYellowCards = updatedPlayer.NumberOfYellowCards;
+            currentPlayer.NumberOfGoalsScored = currentPlayer.NumberOfGoalsScored;
+            currentPlayer.DateOfBirth = currentPlayer.DateOfBirth;
+            currentPlayer.Position = updatedPlayer.Position;
+            currentPlayer.Height = updatedPlayer.Height;
+            currentPlayer.Weight = updatedPlayer.Weight;
+
+            await _footballManagerContext.SaveChangesAsync();
+
+            return currentPlayer;
+        }
     }
 }

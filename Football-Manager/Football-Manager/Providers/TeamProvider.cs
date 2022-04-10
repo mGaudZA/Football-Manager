@@ -73,5 +73,30 @@ namespace Football_Manager.Providers
             await _footballManagerContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> TransferPlayersFromTeamToTeam(TransferAllPlayersFromTeam request)
+        {
+            var currentTeam = await _footballManagerContext.Teams.FindAsync(request.CurrentTeamId);
+
+            var newTeam = await _footballManagerContext.Teams.FindAsync(request.NewTeamId);
+
+            if (currentTeam == null || newTeam == null)
+            {
+                return false;
+            }
+
+            var playersFromTeam = _footballManagerContext.Players.Where(x => x.TeamId == currentTeam.Id)?.ToList();
+
+            if (playersFromTeam?.Count() > 0)
+            {
+                foreach (var player in playersFromTeam)
+                {
+                    player.TeamId = newTeam.Id;
+                }
+                await _footballManagerContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
     }
 }

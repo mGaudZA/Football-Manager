@@ -10,5 +10,7 @@ namespace Football_Manager.Interfaces
         Task<bool> DeleteTeam(int teamId);
         List<Team> GetAllTeams();
         Task<bool> LinkPlayerToTeam(LinkPlayerToTeamRequest request);
+
+        Task<bool> TransferPlayersFromTeamToTeam(TransferAllPlayersFromTeam request);
     }
 }

@@ -61,7 +61,7 @@ namespace Football_Manager_Tests
         {
             var dbContext = DbContextHelper.GetDbContext();
             var newPlayer = PlayerHelper.GetMockPlayer();
-            newPlayer.TeamId = 50;
+            newPlayer.TeamId = int.MaxValue;
             dbContext.Players.Add(newPlayer);
 
             var playerProvider = new PlayerProvider(dbContext);
